@@ -1,0 +1,62 @@
+Caso fotorresistencia
+
+Funcion motorresistencia.
+
+		F1(A4)		
+F4(A5)			F2(A2)
+		F3(A3)
+
+Si F1 es mayor-->dest=0 
+Si F2 es mayor-->dest=1 
+Si F3 es mayor-->dest=2 
+Si F4 es mayor-->dest=3 
+
+F1
+Max. valor=1015
+Valor inicial=694
+Valor menor=508
+
+F2
+Max. valor=1000
+Valor inicial=620
+Valor menor=450
+
+F3
+Max. valor=1016
+Valor inicial=690
+Valor menor=460
+
+F4
+Max. valor=1000
+Valor inicial=605
+Valor menor=340
+
+Si dest=0
+	Siguete derecho
+Si dest=1
+	gira derecha
+Si dest=2
+	vuelta 180
+Si dest=3
+	gira izquierda
+
+Caso sharp.
+
+	S1=SI(A0)	S2=SD(A1)
+
+Si SI detecta objeto a cierta distancia entonces
+	Si SD detecta objeto a cierta distancia -->  obs=3
+	Si SD no detecta objeto a cierta distancia --> obs=2
+Si SI no detecta objeto a cierta distancia entonces
+	Si SD detecta objeto a cierta distancia --> obs=1
+	Si SD no detecta objeto a cierta distancia --> obs=0
+
+Si obs=0
+	Avanza
+Si obs=1
+	Gira izquierda
+Si obs=2
+	Gira derecha
+Si obs=3
+	Esquiva	
+
