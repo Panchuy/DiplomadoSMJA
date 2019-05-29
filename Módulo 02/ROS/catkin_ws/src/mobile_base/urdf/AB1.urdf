@@ -1,0 +1,87 @@
+<robot name="AB1">
+
+	<link name="base_link">
+		<visual>
+			<!-- Hight base 0.09014/2 + offset wheels 0.01305 -->
+			<origin xyz="0 0 0.05812" rpy="0 0 0"/>
+			<geometry>
+				<cylinder length="0.09014" radius="0.06323"/>
+			</geometry>
+			<material name="blue">
+				<color rgba="0 0 1 0.5"/>
+			</material>
+		</visual>
+	</link>
+
+	<joint name="left_wheel_joint_connect" type="fixed">
+		<origin xyz="0 0.035155 0.02155" rpy="0 1.5708 1.5708"/>
+		<parent link="base_link"/>
+		<child link="left_wheel_link"/>
+	</joint>
+
+	<link name="left_wheel_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder length="0.01889" radius="0.02155"/>
+			</geometry>
+			<material name="black">
+				<color rgba="0 0 0 1"/>
+			</material>
+		</visual>
+	</link>
+
+	<joint name="right_wheel_joint_connect" type="fixed">
+		<origin xyz="0 -0.035155 0.02155" rpy="0 1.5708 1.5708"/>
+		<parent link="base_link"/>
+		<child link="right_wheel_link"/>
+	</joint>
+
+	<link name="right_wheel_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder length="0.01889" radius="0.02155"/>
+			</geometry>
+			<material name="black">
+				<color rgba="0 0 0 1"/>
+			</material>
+			</visual>
+	</link>
+
+	<joint name="free_frontal_wheel_joint_connect" type="fixed">
+		<origin xyz="0.056705 0 0.006525" rpy="0 0 0"/>
+		<parent link="base_link"/>
+		<child link="free_frontal_wheel_link"/>
+	</joint>
+
+	<link name="free_frontal_wheel_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<sphere radius="0.006525"/>
+			</geometry>
+			<material name="grey1">
+				<color rgba="0.2 0.2 0.02 1"/>
+			</material>
+		</visual>
+	</link>
+
+	<joint name="free_rear_wheel_joint_connect" type="fixed">
+		<origin xyz="-0.056705 0 0.006525" rpy="0 0 0"/>
+		<parent link="base_link"/>
+		<child link="free_rear_wheel_link"/>
+	</joint>
+
+	<link name="free_rear_wheel_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<sphere radius="0.006525"/>
+			</geometry>
+			<material name="grey1">
+				<color rgba="0.2 0.2 0.02 1"/>
+			</material>
+		</visual>
+	</link>
+</robot>
