@@ -20,6 +20,7 @@
 #include "../state_machines/sm_avoidance_destination.h"
 #include "../state_machines/sm_destination.h"
 #include "../state_machines/user_sm.h"
+#include "../state_machines/campos_p.h"
 #include "../state_machines/dijkstra.h"
 #include "../state_machines/a_star.h"
 #include "../state_machines/dfs.h"
@@ -518,6 +519,65 @@ int main(int argc ,char **argv)
                 {
                     flg_result=sm_avoidance_destination(intensity,q_light,q_inputs,&movements,&est_sig,
                                                         params.robot_max_advance ,params.robot_turn_angle);
+
+                    if(flg_result == 1)
+                    {
+                        if(flg_finish == 1) stop();
+                        else
+                        {
+                            if(steps[i].node != -1)
+                            {
+                                set_light_position(steps[i].x,steps[i].y);
+                                printf("New Light %d: x = %f  y = %f \n",i,steps[i].x,steps[i].y);
+                                printf("Node %d\n",steps[i].node);
+                                i++;
+                                //printf("type a number \n");
+                                //scanf("%d",&tmp);
+                            }
+                            else
+                            {
+                                set_light_position(final_x,final_y);
+                                printf("New Light %d: x = %f  y = %f \n",i,final_x,final_y);
+                                flg_finish=1;
+                            }
+                        }
+                    }
+                }
+            break;
+
+            case 14:
+                // Here it goes your code for selection 8
+                if(flagOnce)
+                {
+                    est_sig = 0;
+                    flagOnce = 0;
+                }
+                flagOnce=campos_p(intensity,light_readings, lidar_readings, params.laser_num_sensors,params.laser_value,
+                        q_light,q_inputs,&movements,&est_sig ,params.robot_max_advance ,params.robot_turn_angle);
+                break;
+
+             case 15:
+                if(flagOnce)
+                {
+                    for(i = 0; i < 200; i++)steps[i].node=-1;
+                    // it finds a path from the origen to a destination using the Dijkstra algorithm
+                    a_star(params.robot_x ,params.robot_y ,params.light_x ,params.light_y ,params.world_name,steps);
+                    print_algorithm_graph (steps);
+                    i=0;
+                    final_x=params.light_x;
+                    final_y= params.light_y;
+                    set_light_position(steps[i].x,steps[i].y);
+                    printf("New Light %d: x = %f  y = %f \n",i,steps[i].x,steps[i].y);
+                    flagOnce = 0;
+                    flg_finish=0;
+                    est_sig = 0;
+                    movements.twist=0.0;
+                    movements.advance =0.0;
+                }
+                else
+                {
+                    flg_result=campos_p(intensity,light_readings, lidar_readings, params.laser_num_sensors,params.laser_value,
+                        q_light,q_inputs,&movements,&est_sig ,params.robot_max_advance ,params.robot_turn_angle);
 
                     if(flg_result == 1)
                     {
